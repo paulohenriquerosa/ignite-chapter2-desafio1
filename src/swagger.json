@@ -1,0 +1,325 @@
+{
+  "openapi":"3.0.0",
+  "info": {
+    "title": "Deafio 2",
+    "description": "This is an API Challenge 2",
+    "version": "1.0.0",
+    "contact": {
+      "email": "paulohenriquerosa04@gmail.com"
+    }
+  },
+
+  "paths": {
+    "/users":{
+      "post":{
+        "tags": ["User"],
+        "summary": "Create a User",
+        "description": "Create a new User",
+        "requestBody":{
+         "content": {
+           "application/json":{
+             "schema":{
+               "type": "object",
+               "properties": {
+                 "name": {
+                   "type": "string"
+                 },
+                 "email":{
+                   "type": "string"
+                 }
+               },
+               "example":{
+                 "name": "JonhDoe",
+                 "description": "jonhdoe@test.com"
+               }
+             }
+           }
+         }
+       },
+
+       "responses": {
+         "201": {
+           "description": "Created",
+           "content": {
+             "application/json":{
+               "schema":{
+                 "type": "object",
+                 "properties": {
+                   "id": {
+                     "type": "string"
+                   },
+                   "name":{
+                     "type": "string"
+                   },
+                   "admin":{
+                     "type": "boolean"
+                   },
+                   "email":{
+                     "type": "string"
+                   },
+                   "created_at":{
+                     "type": "string"
+                   },
+                   "updated_at":{
+                     "type": "string"
+                   }
+                   
+                 }
+               }
+             }
+           }
+         }
+         ,
+         "400":{
+           "description": "User already exists",
+           "content": {
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "string"
+                  }
+    
+                },
+                "example":{
+                  "error": "User already exists"
+                }
+              }
+            }
+           }
+         }
+       }
+
+      },
+      "get":{
+        "tags": ["User"],
+        "summary": "Get a User",
+        "description": "List a user's info",
+
+        "parameters": [
+          {
+            "in": "header",
+            "name": "user_id",
+            "schema": {
+              "type": "string"
+            }
+            
+          }
+        ],
+
+        "responses": {
+          "200":{
+            "description": "Success",
+            "content": {
+              "application/json":{
+
+                "schema":{
+                  "type":"array",
+                  "items":{
+                    "type": "object",
+                    "properties": {
+                      
+                      "id": {
+                        "type": "string"
+                      },
+                      "name":{
+                        "type": "string"
+                      },
+                      "admin":{
+                        "type": "boolean"
+                      },
+                      "email":{
+                        "type": "string"
+                      },
+                      "created_at":{
+                        "type": "string"
+                      },
+                      "updated_at":{
+                        "type": "string"
+                      }
+
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400":{
+            "description": "User already exists",
+            "content": {
+             "application/json":{
+               "schema":{
+                 "type": "object",
+                 "properties": {
+                   "error": {
+                     "type": "string"
+                   }
+     
+                 },
+                 "example":{
+                   "error": "Você precisa ser um admin para listar usuários"
+                 }
+               }
+             }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}":{
+
+      "get":{
+        "tags": ["User"],
+        "summary": "Show profile",
+        "description": "Show user's profile",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+
+        "responses": {
+          "200":{
+            "description": "Success",
+            "content": {
+              "application/json":{
+
+                "schema":{
+                  "type":"array",
+                  "items":{
+                    "type": "object",
+                    "properties": {
+                      
+                      "id": {
+                        "type": "string"
+                      },
+                      "name":{
+                        "type": "string"
+                      },
+                      "admin":{
+                        "type": "boolean"
+                      },
+                      "email":{
+                        "type": "string"
+                      },
+                      "created_at":{
+                        "type": "string"
+                      },
+                      "updated_at":{
+                        "type": "string"
+                      }
+
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404":{
+            "description": "Usuário não encontrado",
+            "content": {
+             "application/json":{
+               "schema":{
+                 "type": "object",
+                 "properties": {
+                   "error": {
+                     "type": "string"
+                   }
+     
+                 },
+                 "example":{
+                   "error": "Usuário não encontrado"
+                 }
+               }
+             }
+            }
+          }
+        }
+      }
+    }
+    ,
+    "/users/{user_id}/admin":{
+
+      "patch":{
+        "tags": ["User"],
+        "summary": "User Admin",
+        "description": "Turn user admin",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+
+        "responses": {
+          "200":{
+            "description": "Success",
+            "content": {
+              "application/json":{
+
+                "schema":{
+                  "type":"array",
+                  "items":{
+                    "type": "object",
+                    "properties": {
+                      
+                      "id": {
+                        "type": "string"
+                      },
+                      "name":{
+                        "type": "string"
+                      },
+                      "admin":{
+                        "type": "boolean"
+                      },
+                      "email":{
+                        "type": "string"
+                      },
+                      "created_at":{
+                        "type": "string"
+                      },
+                      "updated_at":{
+                        "type": "string"
+                      }
+
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404":{
+            "description": "Usuário não encontrado",
+            "content": {
+             "application/json":{
+               "schema":{
+                 "type": "object",
+                 "properties": {
+                   "error": {
+                     "type": "string"
+                   }
+     
+                 },
+                 "example":{
+                   "error": "Usuário não encontrado"
+                 }
+               }
+             }
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
